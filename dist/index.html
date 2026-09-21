@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#4b1019" />
+    <meta name="description" content="Protótipo demonstrativo de landing page para uma clínica de estética avançada em Araçatuba." />
+    <title>SUTIL — Estética Avançada | Protótipo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&amp;display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%234b1019'/%3E%3Cpath d='M19 21c7-7 20-6 26 1M18 32c8-4 20-3 28 3M22 44c7 3 15 2 20-3' fill='none' stroke='%23f4eee5' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
+    <style>
+      :root {
+        --ivory: #f4eee5;
+        --paper: #ebe0d4;
+        --wine: #4b1019;
+        --wine-bright: #7d2835;
+        --ink: #201816;
+        --rose: #cf9e91;
+        --gold: #b58955;
+        --line: rgba(32, 24, 22, 0.18);
+        --serif: "Newsreader", Georgia, serif;
+        --sans: "Manrope", Arial, sans-serif;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--ivory);
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 16px;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      img { display: block; max-width: 100%; }
+      a { color: inherit; }
+      button, input, select { font: inherit; }
+      button, a { -webkit-tap-highlight-color: transparent; }
+      :focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
+      ::selection { background: var(--rose); color: var(--wine); }
+
+      .demo-bar {
+        min-height: 34px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6px 20px;
+        background: var(--ink);
+        color: var(--ivory);
+        font-size: 0.69rem;
+        font-weight: 600;
+        letter-spacing: 0.17em;
+        text-transform: uppercase;
+        text-align: center;
+      }
+
+      .nav {
+        height: 84px;
+        padding: 0 clamp(24px, 5vw, 76px);
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        border-bottom: 1px solid var(--line);
+        background: rgba(244, 238, 229, 0.9);
+        backdrop-filter: blur(12px);
+        position: relative;
+        z-index: 20;
+      }
+
+      .brand {
+        font-family: var(--serif);
+        font-size: 1.35rem;
+        font-weight: 500;
+        letter-spacing: 0.24em;
+        text-decoration: none;
+      }
+
+      .nav-links { display: flex; align-items: center; gap: 34px; }
+      .nav-links a {
+        font-size: 0.76rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+      .nav-links a::after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 1px;
+        margin-top: 4px;
+        background: currentColor;
+        transition: width 220ms ease;
+      }
+      .nav-links a:hover::after { width: 100%; }
+      .nav-cta { justify-self: end; }
+      .nav-cta a {
+        display: inline-flex;
+        align-items: center;
+        gap: 11px;
+        font-size: 0.74rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+      .nav-cta svg { transition: transform 220ms ease; }
+      .nav-cta a:hover svg { transform: translateX(5px); }
+      .menu-button { display: none; }
+
+      .hero {
+        min-height: calc(100svh - 118px);
+        display: grid;
+        grid-template-columns: minmax(0, 0.92fr) minmax(460px, 1.08fr);
+        position: relative;
+        isolation: isolate;
+      }
+
+      .hero-copy {
+        padding: clamp(56px, 8vh, 102px) clamp(30px, 4vw, 76px) 48px clamp(30px, 6vw, 112px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        z-index: 3;
+      }
+
+      .eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin: 0 0 34px;
+        color: var(--wine);
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+      .eyebrow::before { content: ""; width: 38px; height: 1px; background: currentColor; }
+
+      h1, h2, h3, p { margin-top: 0; }
+      h1 {
+        max-width: 790px;
+        margin-bottom: 34px;
+        font-family: var(--serif);
+        font-size: clamp(4rem, 6.4vw, 7.2rem);
+        font-weight: 300;
+        line-height: 0.88;
+        letter-spacing: -0.055em;
+      }
+      h1 em { color: var(--wine); font-weight: 400; }
+      .hero-intro {
+        max-width: 480px;
+        margin-bottom: 38px;
+        font-size: clamp(1rem, 1.25vw, 1.15rem);
+        line-height: 1.7;
+      }
+
+      .button {
+        min-height: 54px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 13px;
+        padding: 13px 22px;
+        border: 1px solid var(--wine);
+        background: var(--wine);
+        color: white;
+        font-size: 0.77rem;
+        font-weight: 600;
+        letter-spacing: 0.09em;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: background 220ms ease, color 220ms ease, transform 220ms ease;
+      }
+      .button:hover { background: transparent; color: var(--wine); transform: translateY(-2px); }
+      .button-light { border-color: var(--ivory); background: var(--ivory); color: var(--wine); }
+      .button-light:hover { background: transparent; color: var(--ivory); }
+
+      .hero-foot {
+        margin-top: 44px;
+        display: flex;
+        align-items: center;
+        gap: 34px;
+        color: rgba(32, 24, 22, 0.66);
+        font-size: 0.73rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .hero-foot span { display: flex; align-items: center; gap: 10px; }
+      .hero-foot span::before { content: ""; width: 5px; height: 5px; background: var(--wine); border-radius: 50%; }
+
+      .hero-visual {
+        min-height: 660px;
+        position: relative;
+        overflow: hidden;
+        background: var(--paper);
+        clip-path: polygon(12% 0, 100% 0, 100% 100%, 0 91%, 0 14%);
+      }
+      .hero-visual img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 54% 42%;
+        filter: saturate(0.88) contrast(1.02);
+        transform: scale(1.015);
+      }
+      .hero-visual::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(110deg, rgba(75, 16, 25, 0.03), transparent 45%, rgba(32, 24, 22, 0.16));
+        pointer-events: none;
+      }
+      .hero-mark {
+        position: absolute;
+        left: 3.5%;
+        bottom: 11%;
+        z-index: 5;
+        width: clamp(110px, 12vw, 180px);
+        aspect-ratio: 1;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: var(--wine);
+        color: var(--ivory);
+        text-align: center;
+        font-family: var(--serif);
+        font-size: clamp(1.25rem, 1.8vw, 1.8rem);
+        line-height: 1;
+        transform: rotate(-9deg);
+      }
+      .hero-mark::before {
+        content: "";
+        position: absolute;
+        inset: 10px;
+        border: 1px solid rgba(244, 238, 229, 0.4);
+        border-radius: inherit;
+      }
+
+      .marquee {
+        overflow: hidden;
+        padding: 19px 0 16px;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+      .marquee-inner {
+        width: max-content;
+        display: flex;
+        gap: 32px;
+        animation: marquee 28s linear infinite;
+        font-family: var(--serif);
+        font-size: 1.25rem;
+        font-style: italic;
+      }
+      .marquee-inner span::after { content: "✦"; margin-left: 32px; color: var(--wine); font-size: 0.75rem; vertical-align: middle; }
+      @keyframes marquee { to { transform: translateX(-50%); } }
+
+      .section { padding: clamp(90px, 11vw, 170px) clamp(24px, 7vw, 112px); }
+      .section-label {
+        color: var(--wine);
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .manifesto {
+        display: grid;
+        grid-template-columns: minmax(180px, 0.55fr) minmax(0, 1.45fr);
+        gap: 60px;
+        align-items: start;
+      }
+      .manifesto h2 {
+        max-width: 1050px;
+        margin-bottom: 40px;
+        font-family: var(--serif);
+        font-size: clamp(3.2rem, 6vw, 6.7rem);
+        font-weight: 300;
+        line-height: 0.98;
+        letter-spacing: -0.045em;
+      }
+      .manifesto h2 em { color: var(--wine); }
+      .manifesto-copy {
+        max-width: 610px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 34px;
+        font-size: 0.94rem;
+      }
+
+      .treatments { background: var(--wine); color: var(--ivory); }
+      .treatments-head {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: end;
+        margin-bottom: 62px;
+      }
+      .treatments h2 {
+        max-width: 780px;
+        margin-bottom: 0;
+        font-family: var(--serif);
+        font-size: clamp(3.3rem, 6vw, 6.2rem);
+        font-weight: 300;
+        line-height: 0.95;
+        letter-spacing: -0.04em;
+      }
+      .treatments-intro { max-width: 460px; justify-self: end; margin-bottom: 7px; color: rgba(244,238,229,.74); }
+      .treatment-list { border-top: 1px solid rgba(244, 238, 229, 0.28); }
+      .treatment {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 80px minmax(240px, 0.85fr) minmax(260px, 1.15fr) 42px;
+        gap: 28px;
+        align-items: center;
+        padding: 30px 0;
+        border: 0;
+        border-bottom: 1px solid rgba(244, 238, 229, 0.28);
+        background: transparent;
+        color: inherit;
+        text-align: left;
+        cursor: pointer;
+      }
+      .treatment:hover .treatment-name { transform: translateX(9px); }
+      .treatment-index { color: var(--rose); font-size: 0.75rem; }
+      .treatment-name {
+        margin: 0;
+        font-family: var(--serif);
+        font-size: clamp(1.7rem, 3vw, 3rem);
+        font-weight: 300;
+        line-height: 1;
+        transition: transform 220ms ease;
+      }
+      .treatment-desc { max-width: 520px; margin: 0; color: rgba(244,238,229,.68); font-size: 0.9rem; }
+      .treatment-icon { width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid rgba(244,238,229,.4); border-radius: 50%; transition: transform 220ms ease, background 220ms ease; }
+      .treatment:hover .treatment-icon { transform: rotate(45deg); background: var(--ivory); color: var(--wine); }
+
+      .philosophy {
+        min-height: 78vh;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 0;
+        background: var(--paper);
+      }
+      .philosophy-copy {
+        padding: clamp(80px, 10vw, 150px) clamp(28px, 7vw, 112px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .philosophy h2 {
+        max-width: 740px;
+        margin: 28px 0 35px;
+        font-family: var(--serif);
+        font-size: clamp(3.6rem, 6.3vw, 7rem);
+        font-weight: 300;
+        line-height: 0.9;
+        letter-spacing: -0.05em;
+      }
+      .philosophy p { max-width: 520px; }
+      .philosophy-art { position: relative; overflow: hidden; background: var(--rose); }
+      .philosophy-art::before {
+        content: "S";
+        position: absolute;
+        inset: 50% auto auto 50%;
+        color: rgba(75, 16, 25, 0.84);
+        font-family: var(--serif);
+        font-size: min(55vw, 780px);
+        font-weight: 300;
+        line-height: 0.6;
+        transform: translate(-50%, -50%);
+      }
+      .orbit, .orbit::before, .orbit::after {
+        position: absolute;
+        border: 1px solid rgba(244,238,229,.65);
+        border-radius: 50%;
+      }
+      .orbit { width: 58%; aspect-ratio: 1; left: 21%; top: 19%; animation: spin 24s linear infinite; }
+      .orbit::before { content: ""; inset: 15%; }
+      .orbit::after { content: ""; inset: -17%; }
+      .orbit-dot { position: absolute; width: 14px; height: 14px; top: 20%; left: 50%; border-radius: 50%; background: var(--ivory); box-shadow: 0 0 0 10px rgba(244,238,229,.12); }
+      .art-caption { position: absolute; right: 34px; bottom: 30px; color: var(--ivory); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; writing-mode: vertical-rl; }
+      @keyframes spin { to { transform: rotate(360deg); } }
+
+      .journey { background: var(--ivory); }
+      .journey-head { display: grid; grid-template-columns: .7fr 1.3fr; gap: 60px; margin-bottom: 74px; }
+      .journey h2 {
+        max-width: 920px;
+        font-family: var(--serif);
+        font-size: clamp(3.4rem, 5.4vw, 6rem);
+        font-weight: 300;
+        line-height: .95;
+        letter-spacing: -.045em;
+      }
+      .journey-steps { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+      .step { min-height: 310px; padding: 32px 36px 20px 0; border-right: 1px solid var(--line); }
+      .step + .step { padding-left: 36px; }
+      .step:last-child { border-right: 0; }
+      .step-number { color: var(--wine); font-family: var(--serif); font-size: 4.8rem; font-weight: 300; line-height: 1; }
+      .step h3 { margin: 86px 0 18px; font-family: var(--serif); font-size: 1.9rem; font-weight: 400; }
+      .step p { max-width: 320px; margin-bottom: 0; color: rgba(32,24,22,.7); font-size: .9rem; }
+
+      .contact {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: clamp(55px, 9vw, 150px);
+        background: var(--ink);
+        color: var(--ivory);
+      }
+      .contact h2 { margin: 26px 0 30px; font-family: var(--serif); font-size: clamp(3.7rem, 6.2vw, 6.5rem); font-weight: 300; line-height: .9; letter-spacing: -.045em; }
+      .contact-copy > p { max-width: 490px; color: rgba(244,238,229,.7); }
+      .demo-note { margin-top: 70px; padding-top: 24px; border-top: 1px solid rgba(244,238,229,.2); font-size: .75rem; letter-spacing: .05em; }
+      .contact-form { align-self: center; }
+      .field { position: relative; margin-bottom: 28px; }
+      .field label { display: block; margin-bottom: 8px; color: rgba(244,238,229,.62); font-size: .68rem; letter-spacing: .13em; text-transform: uppercase; }
+      .field input, .field select {
+        width: 100%;
+        min-height: 58px;
+        padding: 10px 2px;
+        border: 0;
+        border-bottom: 1px solid rgba(244,238,229,.38);
+        border-radius: 0;
+        background: transparent;
+        color: var(--ivory);
+        font-size: 1rem;
+      }
+      .field select { color-scheme: dark; }
+      .field input::placeholder { color: rgba(244,238,229,.34); }
+      .field input:focus, .field select:focus { outline: none; border-bottom-color: var(--ivory); }
+      .contact-form .button { width: 100%; margin-top: 10px; cursor: pointer; }
+      .form-message { min-height: 28px; margin: 20px 0 0; color: var(--rose); font-size: .86rem; }
+
+      footer {
+        min-height: 190px;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: end;
+        gap: 30px;
+        padding: 52px clamp(24px, 7vw, 112px);
+        background: var(--ink);
+        color: rgba(244,238,229,.62);
+        border-top: 1px solid rgba(244,238,229,.15);
+        font-size: .7rem;
+        letter-spacing: .09em;
+        text-transform: uppercase;
+      }
+      footer .brand { color: var(--ivory); justify-self: center; }
+      footer a { justify-self: end; text-decoration: none; }
+
+      .mobile-sticky-cta { display: none; }
+
+      .reveal { opacity: 0; transform: translateY(24px); transition: opacity 700ms ease, transform 700ms cubic-bezier(.2,.7,.2,1); }
+      .reveal.is-visible { opacity: 1; transform: none; }
+
+      @media (max-width: 1020px) {
+        .nav { grid-template-columns: 1fr auto; }
+        .nav-links { display: none; }
+        .nav-cta { display: none; }
+        .menu-button { width: 46px; height: 46px; display: grid; place-items: center; justify-self: end; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+        .menu-button span, .menu-button span::before { display: block; width: 25px; height: 1px; background: currentColor; transition: transform 220ms ease; }
+        .menu-button span::before { content: ""; transform: translateY(7px); }
+        .menu-button[aria-expanded="true"] span { transform: rotate(45deg); }
+        .menu-button[aria-expanded="true"] span::before { transform: rotate(-90deg); }
+        .mobile-menu { position: absolute; top: 84px; left: 0; right: 0; display: grid; gap: 4px; padding: 20px 24px 28px; border-bottom: 1px solid var(--line); background: var(--ivory); }
+        .mobile-menu[hidden] { display: none; }
+        .mobile-menu a { padding: 14px 0; border-bottom: 1px solid var(--line); font-family: var(--serif); font-size: 1.5rem; text-decoration: none; }
+        .hero { grid-template-columns: minmax(0, .95fr) minmax(380px, 1.05fr); }
+        h1 { font-size: clamp(3.8rem, 7vw, 5.8rem); }
+        .hero-copy { padding-left: 46px; }
+        .manifesto { grid-template-columns: 1fr; }
+        .treatment { grid-template-columns: 60px minmax(220px, .8fr) 1.2fr 42px; }
+        .contact { grid-template-columns: 1fr 1fr; }
+      }
+
+      @media (max-width: 760px) {
+        .demo-bar { min-height: 38px; font-size: .6rem; letter-spacing: .12em; }
+        .nav { height: 68px; padding: 0 20px; }
+        .mobile-menu { top: 68px; }
+        .hero { min-height: auto; display: flex; flex-direction: column; }
+        .hero-copy { order: 2; padding: 54px 22px 52px; }
+        .hero-copy-main { display: contents; }
+        .eyebrow { margin-bottom: 24px; }
+        h1 { margin-bottom: 28px; font-size: clamp(3.55rem, 18vw, 5.2rem); line-height: .88; }
+        .hero-intro { margin-bottom: 30px; font-size: .98rem; }
+        .hero-foot { margin-top: 34px; flex-wrap: wrap; gap: 13px 22px; font-size: .66rem; }
+        .hero-visual { order: 1; min-height: 55svh; clip-path: polygon(0 0, 100% 0, 100% 91%, 80% 100%, 0 94%); }
+        .hero-visual img { object-position: 57% 38%; }
+        .hero-mark { left: auto; right: 17px; bottom: 1%; width: 112px; font-size: 1.2rem; }
+        .marquee { padding: 14px 0 12px; }
+        .marquee-inner { font-size: 1.05rem; }
+        .section { padding: 88px 22px; }
+        .manifesto { gap: 28px; }
+        .manifesto h2 { font-size: clamp(3.1rem, 15vw, 4.8rem); }
+        .manifesto-copy { grid-template-columns: 1fr; gap: 4px; }
+        .treatments-head { grid-template-columns: 1fr; gap: 25px; }
+        .treatments h2 { font-size: clamp(3.2rem, 15vw, 4.7rem); }
+        .treatments-intro { justify-self: start; }
+        .treatment { grid-template-columns: 44px 1fr 38px; gap: 14px; padding: 24px 0; }
+        .treatment-desc { display: none; }
+        .treatment-name { font-size: 1.65rem; }
+        .philosophy { min-height: auto; grid-template-columns: 1fr; }
+        .philosophy-copy { padding: 90px 22px; }
+        .philosophy h2 { font-size: clamp(3.7rem, 17vw, 5.4rem); }
+        .philosophy-art { min-height: 72vw; }
+        .orbit { width: 62%; left: 19%; top: 17%; }
+        .journey-head { grid-template-columns: 1fr; gap: 24px; margin-bottom: 50px; }
+        .journey h2 { font-size: clamp(3.2rem, 15vw, 4.7rem); }
+        .journey-steps { grid-template-columns: 1fr; }
+        .step, .step + .step { min-height: auto; padding: 30px 0 36px; border-right: 0; border-bottom: 1px solid var(--line); }
+        .step-number { font-size: 3.8rem; }
+        .step h3 { margin: 35px 0 13px; }
+        .contact { grid-template-columns: 1fr; gap: 55px; }
+        .contact h2 { font-size: clamp(3.8rem, 17vw, 5.5rem); }
+        .demo-note { margin-top: 42px; }
+        footer { min-height: 240px; grid-template-columns: 1fr; align-items: center; text-align: center; }
+        footer .brand, footer a { justify-self: center; }
+        .mobile-sticky-cta {
+          position: fixed;
+          z-index: 30;
+          left: 14px;
+          right: 14px;
+          bottom: 12px;
+          min-height: 52px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 12px 18px;
+          background: var(--wine);
+          color: var(--ivory);
+          border: 1px solid rgba(244,238,229,.35);
+          box-shadow: 0 14px 35px rgba(32,24,22,.24);
+          font-size: .72rem;
+          font-weight: 600;
+          letter-spacing: .1em;
+          text-decoration: none;
+          text-transform: uppercase;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+        .reveal { opacity: 1; transform: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demo-bar">Protótipo demonstrativo · marca, imagem e conteúdo fictícios</div>
+    <header class="nav">
+      <a class="brand" href="#inicio" aria-label="Sutil, voltar ao início">SUTIL</a>
+      <nav class="nav-links" aria-label="Navegação principal">
+        <a href="#conceito">Conceito</a>
+        <a href="#tratamentos">Tratamentos</a>
+        <a href="#jornada">Sua jornada</a>
+      </nav>
+      <div class="nav-cta">
+        <a href="#agendar">Agendar avaliação
+          <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 9h11M10 5l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+        </a>
+      </div>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menu"><span></span></button>
+      <nav class="mobile-menu" id="mobile-menu" aria-label="Navegação móvel" hidden>
+        <a href="#conceito">Conceito</a>
+        <a href="#tratamentos">Tratamentos</a>
+        <a href="#jornada">Sua jornada</a>
+        <a href="#agendar">Agendar avaliação</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="inicio">
+        <div class="hero-copy">
+          <div class="hero-copy-main">
+            <p class="eyebrow">Estética avançada · Araçatuba</p>
+            <h1>Natural é continuar parecendo <em>você.</em></h1>
+            <p class="hero-intro">Uma abordagem individual para valorizar seus traços com delicadeza, intenção e respeito à sua identidade.</p>
+            <a class="button" href="#agendar">Quero agendar uma avaliação
+              <svg width="19" height="19" viewBox="0 0 19 19" aria-hidden="true"><path d="M3 9.5h12M11 5.5l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+            </a>
+          </div>
+          <div class="hero-foot">
+            <span>Atendimento individual</span>
+            <span>Resultados naturais</span>
+          </div>
+        </div>
+        <div class="hero-visual" aria-label="Retrato conceitual de uma mulher adulta">
+          <img src="assets/hero-estetica.webp" alt="Retrato editorial ilustrativo de uma mulher adulta com aparência natural" width="1024" height="1536" fetchpriority="high" />
+          <div class="hero-mark" aria-hidden="true">beleza<br />com intenção</div>
+        </div>
+      </section>
+
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-inner"><span>Naturalidade</span><span>Escuta</span><span>Precisão</span><span>Identidade</span><span>Naturalidade</span><span>Escuta</span><span>Precisão</span><span>Identidade</span></div>
+      </div>
+
+      <section class="section manifesto" id="conceito">
+        <p class="section-label reveal">Nossa forma de cuidar</p>
+        <div class="reveal">
+          <h2>A beleza não precisa de um novo rosto. Precisa de um olhar mais <em>atento.</em></h2>
+          <div class="manifesto-copy">
+            <p>Antes de qualquer procedimento, existe uma conversa. Entender suas expectativas é parte essencial de um plano que faça sentido para você.</p>
+            <p>O objetivo é preservar expressão, movimento e identidade — para que o resultado seja percebido como cuidado, não como excesso.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section treatments" id="tratamentos">
+        <div class="treatments-head reveal">
+          <h2>Protocolos pensados para a sua fase.</h2>
+          <p class="treatments-intro">Cada indicação nasce de uma avaliação individual. Conheça algumas possibilidades que podem compor seu plano de cuidado.</p>
+        </div>
+        <div class="treatment-list reveal">
+          <button class="treatment" type="button" data-service="Toxina botulínica">
+            <span class="treatment-index">01</span><span class="treatment-name">Toxina botulínica</span><span class="treatment-desc">Suavização de linhas de expressão com planejamento que preserva a naturalidade.</span><span class="treatment-icon" aria-hidden="true">+</span>
+          </button>
+          <button class="treatment" type="button" data-service="Bioestimuladores">
+            <span class="treatment-index">02</span><span class="treatment-name">Bioestimuladores</span><span class="treatment-desc">Protocolos voltados à qualidade, firmeza e sustentação da pele ao longo do tempo.</span><span class="treatment-icon" aria-hidden="true">+</span>
+          </button>
+          <button class="treatment" type="button" data-service="Preenchimento facial">
+            <span class="treatment-index">03</span><span class="treatment-name">Preenchimento facial</span><span class="treatment-desc">Estratégia de proporções e contornos para valorizar traços sem descaracterizar.</span><span class="treatment-icon" aria-hidden="true">+</span>
+          </button>
+          <button class="treatment" type="button" data-service="Qualidade da pele">
+            <span class="treatment-index">04</span><span class="treatment-name">Qualidade da pele</span><span class="treatment-desc">Cuidados combinados para textura, luminosidade e aparência saudável da pele.</span><span class="treatment-icon" aria-hidden="true">+</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="philosophy">
+        <div class="philosophy-copy reveal">
+          <p class="section-label">O princípio Sutil</p>
+          <h2>Menos pressa.<br />Mais presença.</h2>
+          <p>Um bom resultado começa no diagnóstico e continua no acompanhamento. Sem fórmulas prontas, sem exageros, sem perder aquilo que faz você ser você.</p>
+        </div>
+        <div class="philosophy-art" aria-hidden="true">
+          <div class="orbit"><span class="orbit-dot"></span></div>
+          <span class="art-caption">precisão · proporção · identidade</span>
+        </div>
+      </section>
+
+      <section class="section journey" id="jornada">
+        <div class="journey-head reveal">
+          <p class="section-label">Sua jornada</p>
+          <h2>Clareza em cada etapa do cuidado.</h2>
+        </div>
+        <div class="journey-steps reveal">
+          <article class="step"><span class="step-number">01</span><h3>Escuta e avaliação</h3><p>Você compartilha o que deseja e recebe uma análise individual, sem compromisso com procedimentos.</p></article>
+          <article class="step"><span class="step-number">02</span><h3>Plano personalizado</h3><p>As possibilidades são explicadas com transparência, considerando prioridades e expectativas realistas.</p></article>
+          <article class="step"><span class="step-number">03</span><h3>Cuidado contínuo</h3><p>O acompanhamento faz parte do processo e ajuda a respeitar o tempo de cada resultado.</p></article>
+        </div>
+      </section>
+
+      <section class="section contact" id="agendar">
+        <div class="contact-copy reveal">
+          <p class="section-label">Comece pela conversa</p>
+          <h2>Seu plano começa com uma avaliação.</h2>
+          <p>Preencha os dados para visualizar como funcionaria a captação de um novo contato nesta landing page.</p>
+          <p class="demo-note">Este formulário é demonstrativo e não envia informações para uma clínica real.</p>
+        </div>
+        <form class="contact-form reveal" id="demo-form">
+          <div class="field"><label for="name">Como podemos chamar você?</label><input id="name" name="name" type="text" placeholder="Seu primeiro nome" autocomplete="given-name" required /></div>
+          <div class="field"><label for="interest">O que você gostaria de conhecer?</label><select id="interest" name="interest" required><option value="">Selecione uma opção</option><option>Toxina botulínica</option><option>Bioestimuladores</option><option>Preenchimento facial</option><option>Qualidade da pele</option><option>Quero receber uma orientação</option></select></div>
+          <div class="field"><label for="phone">Seu WhatsApp</label><input id="phone" name="phone" type="tel" inputmode="tel" placeholder="(18) 99999-9999" autocomplete="tel" required /></div>
+          <button class="button button-light" type="submit">Simular pedido de avaliação
+            <svg width="19" height="19" viewBox="0 0 19 19" aria-hidden="true"><path d="M3 9.5h12M11 5.5l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+          </button>
+          <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <span>Protótipo comercial · 2026</span>
+      <a class="brand" href="#inicio">SUTIL</a>
+      <a href="#inicio">Voltar ao início ↑</a>
+    </footer>
+    <a class="mobile-sticky-cta" href="#agendar">Agendar avaliação <span aria-hidden="true">→</span></a>
+
+    <script>
+      const menuButton = document.querySelector('.menu-button');
+      const mobileMenu = document.querySelector('#mobile-menu');
+      menuButton.addEventListener('click', () => {
+        const open = menuButton.getAttribute('aria-expanded') === 'true';
+        menuButton.setAttribute('aria-expanded', String(!open));
+        menuButton.setAttribute('aria-label', open ? 'Abrir menu' : 'Fechar menu');
+        mobileMenu.hidden = open;
+      });
+      mobileMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuButton.setAttribute('aria-label', 'Abrir menu');
+        mobileMenu.hidden = true;
+      }));
+
+      document.querySelectorAll('.treatment').forEach((item) => item.addEventListener('click', () => {
+        document.querySelector('#interest').value = item.dataset.service;
+        document.querySelector('#agendar').scrollIntoView({ behavior: 'smooth' });
+      }));
+
+      const form = document.querySelector('#demo-form');
+      const formMessage = document.querySelector('#form-message');
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const firstName = document.querySelector('#name').value.trim().split(' ')[0];
+        formMessage.textContent = `Demonstração concluída${firstName ? `, ${firstName}` : ''}: em um projeto real, este pedido seria enviado para o WhatsApp da clínica.`;
+        form.reset();
+      });
+
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const reveals = document.querySelectorAll('.reveal');
+      if (reducedMotion || !('IntersectionObserver' in window)) {
+        reveals.forEach((element) => element.classList.add('is-visible'));
+      } else {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.16 });
+        reveals.forEach((element) => observer.observe(element));
+      }
+    </script>
+  </body>
+</html>
