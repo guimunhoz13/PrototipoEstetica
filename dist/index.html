@@ -36,6 +36,18 @@
         overflow-x: hidden;
       }
 
+      .scroll-progress {
+        width: 100%;
+        height: 3px;
+        position: fixed;
+        inset: 0 0 auto;
+        z-index: 100;
+        background: var(--rose);
+        transform: scaleX(0);
+        transform-origin: left center;
+        will-change: transform;
+      }
+
       img { display: block; max-width: 100%; }
       a { color: inherit; }
       button, input, select { font: inherit; }
@@ -113,7 +125,9 @@
       .menu-button { display: none; }
 
       .hero {
-        min-height: calc(100svh - 118px);
+        height: calc(100svh - 118px);
+        min-height: 560px;
+        max-height: 840px;
         display: grid;
         grid-template-columns: minmax(0, 0.92fr) minmax(460px, 1.08fr);
         position: relative;
@@ -121,7 +135,7 @@
       }
 
       .hero-copy {
-        padding: clamp(56px, 8vh, 102px) clamp(30px, 4vw, 76px) 48px clamp(30px, 6vw, 112px);
+        padding: clamp(38px, 6vh, 68px) clamp(30px, 4vw, 76px) 36px clamp(30px, 6vw, 112px);
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -133,7 +147,7 @@
         display: flex;
         align-items: center;
         gap: 14px;
-        margin: 0 0 34px;
+        margin: 0 0 24px;
         color: var(--wine);
         font-size: 0.72rem;
         font-weight: 600;
@@ -145,9 +159,9 @@
       h1, h2, h3, p { margin-top: 0; }
       h1 {
         max-width: 790px;
-        margin-bottom: 34px;
+        margin-bottom: 25px;
         font-family: var(--serif);
-        font-size: clamp(4rem, 6.4vw, 7.2rem);
+        font-size: clamp(3.6rem, 5.3vw, 5.9rem);
         font-weight: 300;
         line-height: 0.88;
         letter-spacing: -0.055em;
@@ -155,9 +169,9 @@
       h1 em { color: var(--wine); font-weight: 400; }
       .hero-intro {
         max-width: 480px;
-        margin-bottom: 38px;
-        font-size: clamp(1rem, 1.25vw, 1.15rem);
-        line-height: 1.7;
+        margin-bottom: 28px;
+        font-size: clamp(.94rem, 1.05vw, 1.05rem);
+        line-height: 1.62;
       }
 
       .button {
@@ -182,7 +196,7 @@
       .button-light:hover { background: transparent; color: var(--ivory); }
 
       .hero-foot {
-        margin-top: 44px;
+        margin-top: 28px;
         display: flex;
         align-items: center;
         gap: 34px;
@@ -195,7 +209,8 @@
       .hero-foot span::before { content: ""; width: 5px; height: 5px; background: var(--wine); border-radius: 50%; }
 
       .hero-visual {
-        min-height: 660px;
+        min-height: 0;
+        height: 100%;
         position: relative;
         overflow: hidden;
         background: var(--paper);
@@ -207,7 +222,8 @@
         object-fit: cover;
         object-position: 54% 42%;
         filter: saturate(0.88) contrast(1.02);
-        transform: scale(1.015);
+        transform: translate3d(0, var(--parallax-y, 0), 0) scale(1.045);
+        will-change: transform;
       }
       .hero-visual::after {
         content: "";
@@ -221,7 +237,7 @@
         left: 3.5%;
         bottom: 11%;
         z-index: 5;
-        width: clamp(110px, 12vw, 180px);
+        width: clamp(104px, 10vw, 154px);
         aspect-ratio: 1;
         display: grid;
         place-items: center;
@@ -230,7 +246,7 @@
         color: var(--ivory);
         text-align: center;
         font-family: var(--serif);
-        font-size: clamp(1.25rem, 1.8vw, 1.8rem);
+        font-size: clamp(1.12rem, 1.5vw, 1.55rem);
         line-height: 1;
         transform: rotate(-9deg);
       }
@@ -260,7 +276,7 @@
       .marquee-inner span::after { content: "✦"; margin-left: 32px; color: var(--wine); font-size: 0.75rem; vertical-align: middle; }
       @keyframes marquee { to { transform: translateX(-50%); } }
 
-      .section { padding: clamp(90px, 11vw, 170px) clamp(24px, 7vw, 112px); }
+      .section { padding: clamp(76px, 8vw, 126px) clamp(24px, 7vw, 112px); }
       .section-label {
         color: var(--wine);
         font-size: 0.7rem;
@@ -279,7 +295,7 @@
         max-width: 1050px;
         margin-bottom: 40px;
         font-family: var(--serif);
-        font-size: clamp(3.2rem, 6vw, 6.7rem);
+        font-size: clamp(3rem, 5vw, 5.4rem);
         font-weight: 300;
         line-height: 0.98;
         letter-spacing: -0.045em;
@@ -305,7 +321,7 @@
         max-width: 780px;
         margin-bottom: 0;
         font-family: var(--serif);
-        font-size: clamp(3.3rem, 6vw, 6.2rem);
+        font-size: clamp(3rem, 5vw, 5.25rem);
         font-weight: 300;
         line-height: 0.95;
         letter-spacing: -0.04em;
@@ -325,7 +341,21 @@
         color: inherit;
         text-align: left;
         cursor: pointer;
+        position: relative;
+        isolation: isolate;
+        transition: padding 280ms ease;
       }
+      .treatment::before {
+        content: "";
+        position: absolute;
+        inset: 0 -24px;
+        z-index: -1;
+        background: rgba(244, 238, 229, .07);
+        transform: scaleX(0);
+        transform-origin: right center;
+        transition: transform 420ms cubic-bezier(.2,.7,.2,1);
+      }
+      .treatment:hover::before { transform: scaleX(1); transform-origin: left center; }
       .treatment:hover .treatment-name { transform: translateX(9px); }
       .treatment-index { color: var(--rose); font-size: 0.75rem; }
       .treatment-name {
@@ -341,14 +371,14 @@
       .treatment:hover .treatment-icon { transform: rotate(45deg); background: var(--ivory); color: var(--wine); }
 
       .philosophy {
-        min-height: 78vh;
+        min-height: 70vh;
         display: grid;
         grid-template-columns: 1fr 1fr;
         padding: 0;
         background: var(--paper);
       }
       .philosophy-copy {
-        padding: clamp(80px, 10vw, 150px) clamp(28px, 7vw, 112px);
+        padding: clamp(70px, 8vw, 118px) clamp(28px, 7vw, 112px);
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -357,7 +387,7 @@
         max-width: 740px;
         margin: 28px 0 35px;
         font-family: var(--serif);
-        font-size: clamp(3.6rem, 6.3vw, 7rem);
+        font-size: clamp(3.3rem, 5.2vw, 5.7rem);
         font-weight: 300;
         line-height: 0.9;
         letter-spacing: -0.05em;
@@ -392,17 +422,17 @@
       .journey h2 {
         max-width: 920px;
         font-family: var(--serif);
-        font-size: clamp(3.4rem, 5.4vw, 6rem);
+        font-size: clamp(3.1rem, 4.8vw, 5.2rem);
         font-weight: 300;
         line-height: .95;
         letter-spacing: -.045em;
       }
       .journey-steps { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
-      .step { min-height: 310px; padding: 32px 36px 20px 0; border-right: 1px solid var(--line); }
+      .step { min-height: 275px; padding: 28px 36px 20px 0; border-right: 1px solid var(--line); }
       .step + .step { padding-left: 36px; }
       .step:last-child { border-right: 0; }
       .step-number { color: var(--wine); font-family: var(--serif); font-size: 4.8rem; font-weight: 300; line-height: 1; }
-      .step h3 { margin: 86px 0 18px; font-family: var(--serif); font-size: 1.9rem; font-weight: 400; }
+      .step h3 { margin: 64px 0 18px; font-family: var(--serif); font-size: 1.9rem; font-weight: 400; }
       .step p { max-width: 320px; margin-bottom: 0; color: rgba(32,24,22,.7); font-size: .9rem; }
 
       .contact {
@@ -412,7 +442,7 @@
         background: var(--ink);
         color: var(--ivory);
       }
-      .contact h2 { margin: 26px 0 30px; font-family: var(--serif); font-size: clamp(3.7rem, 6.2vw, 6.5rem); font-weight: 300; line-height: .9; letter-spacing: -.045em; }
+      .contact h2 { margin: 26px 0 30px; font-family: var(--serif); font-size: clamp(3.3rem, 5.15vw, 5.5rem); font-weight: 300; line-height: .9; letter-spacing: -.045em; }
       .contact-copy > p { max-width: 490px; color: rgba(244,238,229,.7); }
       .demo-note { margin-top: 70px; padding-top: 24px; border-top: 1px solid rgba(244,238,229,.2); font-size: .75rem; letter-spacing: .05em; }
       .contact-form { align-self: center; }
@@ -470,8 +500,44 @@
 
       .mobile-sticky-cta { display: none; }
 
-      .reveal { opacity: 0; transform: translateY(24px); transition: opacity 700ms ease, transform 700ms cubic-bezier(.2,.7,.2,1); }
+      .reveal { opacity: 0; transform: translateY(34px) scale(.985); transition: opacity 800ms ease, transform 900ms cubic-bezier(.2,.7,.2,1); }
       .reveal.is-visible { opacity: 1; transform: none; }
+
+      body.is-ready .demo-bar { animation: intro-down 520ms ease both; }
+      body.is-ready .nav { animation: intro-down 620ms 70ms ease both; }
+      body.is-ready .hero-copy-main > *,
+      body.is-ready .hero-foot { animation: intro-up 760ms cubic-bezier(.2,.75,.2,1) both; }
+      body.is-ready .hero-copy-main > :nth-child(1) { animation-delay: 160ms; }
+      body.is-ready .hero-copy-main > :nth-child(2) { animation-delay: 230ms; }
+      body.is-ready .hero-copy-main > :nth-child(3) { animation-delay: 320ms; }
+      body.is-ready .hero-copy-main > :nth-child(4) { animation-delay: 410ms; }
+      body.is-ready .hero-foot { animation-delay: 500ms; }
+      body.is-ready .hero-visual img { animation: image-settle 1.45s cubic-bezier(.2,.75,.2,1) both; }
+      body.is-ready .hero-mark { animation: mark-in 900ms 560ms cubic-bezier(.2,.75,.2,1) both; }
+      .journey-steps.is-visible .step { animation: step-in 760ms cubic-bezier(.2,.75,.2,1) both; }
+      .journey-steps.is-visible .step:nth-child(2) { animation-delay: 120ms; }
+      .journey-steps.is-visible .step:nth-child(3) { animation-delay: 240ms; }
+
+      @keyframes intro-down {
+        from { opacity: 0; transform: translateY(-18px); }
+        to { opacity: 1; transform: none; }
+      }
+      @keyframes intro-up {
+        from { opacity: 0; transform: translateY(26px); }
+        to { opacity: 1; transform: none; }
+      }
+      @keyframes image-settle {
+        from { opacity: .45; transform: translate3d(0, var(--parallax-y, 0), 0) scale(1.13); }
+        to { opacity: 1; transform: translate3d(0, var(--parallax-y, 0), 0) scale(1.045); }
+      }
+      @keyframes mark-in {
+        from { opacity: 0; transform: rotate(-24deg) scale(.72); }
+        to { opacity: 1; transform: rotate(-9deg) scale(1); }
+      }
+      @keyframes step-in {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: none; }
+      }
 
       @media (max-width: 1020px) {
         .nav { grid-template-columns: 1fr auto; }
@@ -486,7 +552,7 @@
         .mobile-menu[hidden] { display: none; }
         .mobile-menu a { padding: 14px 0; border-bottom: 1px solid var(--line); font-family: var(--serif); font-size: 1.5rem; text-decoration: none; }
         .hero { grid-template-columns: minmax(0, .95fr) minmax(380px, 1.05fr); }
-        h1 { font-size: clamp(3.8rem, 7vw, 5.8rem); }
+        h1 { font-size: clamp(3.5rem, 6.3vw, 5.1rem); }
         .hero-copy { padding-left: 46px; }
         .manifesto { grid-template-columns: 1fr; }
         .treatment { grid-template-columns: 60px minmax(220px, .8fr) 1.2fr 42px; }
@@ -497,41 +563,57 @@
         .demo-bar { min-height: 38px; font-size: .6rem; letter-spacing: .12em; }
         .nav { height: 68px; padding: 0 20px; }
         .mobile-menu { top: 68px; }
-        .hero { min-height: auto; display: flex; flex-direction: column; }
-        .hero-copy { order: 2; padding: 54px 22px 52px; }
-        .hero-copy-main { display: contents; }
-        .eyebrow { margin-bottom: 24px; }
-        h1 { margin-bottom: 28px; font-size: clamp(3.55rem, 18vw, 5.2rem); line-height: .88; }
-        .hero-intro { margin-bottom: 30px; font-size: .98rem; }
-        .hero-foot { margin-top: 34px; flex-wrap: wrap; gap: 13px 22px; font-size: .66rem; }
-        .hero-visual { order: 1; min-height: 55svh; clip-path: polygon(0 0, 100% 0, 100% 91%, 80% 100%, 0 94%); }
-        .hero-visual img { object-position: 57% 38%; }
-        .hero-mark { left: auto; right: 17px; bottom: 1%; width: 112px; font-size: 1.2rem; }
+        .hero {
+          height: calc(100svh - 106px);
+          min-height: 590px;
+          max-height: 790px;
+          display: block;
+          background: var(--ink);
+        }
+        .hero-copy {
+          height: 100%;
+          justify-content: flex-end;
+          padding: 34px 22px 72px;
+          color: var(--ivory);
+          text-shadow: 0 2px 26px rgba(32, 24, 22, .28);
+        }
+        .hero-copy-main { max-width: 520px; }
+        .hero .eyebrow { margin-bottom: 18px; color: var(--ivory); }
+        .hero h1 { max-width: 360px; margin-bottom: 19px; font-size: clamp(3.05rem, 13.4vw, 4.15rem); line-height: .88; }
+        .hero h1 em { color: var(--ivory); }
+        .hero-intro { max-width: 345px; margin-bottom: 23px; font-size: .88rem; line-height: 1.52; }
+        .hero .button { min-height: 50px; border-color: var(--ivory); background: var(--ivory); color: var(--wine); text-shadow: none; }
+        .hero .button:hover { background: transparent; color: var(--ivory); }
+        .hero-foot { display: none; }
+        .hero-visual { position: absolute; inset: 0; height: 100%; clip-path: none; }
+        .hero-visual img { object-position: 56% 34%; transform: translate3d(0, var(--parallax-y, 0), 0) scale(1.04); }
+        .hero-visual::after { background: linear-gradient(180deg, rgba(32,24,22,.04) 24%, rgba(32,24,22,.22) 50%, rgba(32,24,22,.92) 100%); }
+        .hero-mark { left: auto; right: 17px; top: 18px; bottom: auto; width: 92px; font-size: 1rem; }
         .marquee { padding: 14px 0 12px; }
         .marquee-inner { font-size: 1.05rem; }
-        .section { padding: 88px 22px; }
+        .section { padding: 72px 22px; }
         .manifesto { gap: 28px; }
-        .manifesto h2 { font-size: clamp(3.1rem, 15vw, 4.8rem); }
+        .manifesto h2 { font-size: clamp(2.75rem, 12.5vw, 4rem); }
         .manifesto-copy { grid-template-columns: 1fr; gap: 4px; }
         .treatments-head { grid-template-columns: 1fr; gap: 25px; }
-        .treatments h2 { font-size: clamp(3.2rem, 15vw, 4.7rem); }
+        .treatments h2 { font-size: clamp(2.8rem, 12.5vw, 4rem); }
         .treatments-intro { justify-self: start; }
         .treatment { grid-template-columns: 44px 1fr 38px; gap: 14px; padding: 24px 0; }
         .treatment-desc { display: none; }
         .treatment-name { font-size: 1.65rem; }
         .philosophy { min-height: auto; grid-template-columns: 1fr; }
-        .philosophy-copy { padding: 90px 22px; }
-        .philosophy h2 { font-size: clamp(3.7rem, 17vw, 5.4rem); }
+        .philosophy-copy { padding: 74px 22px; }
+        .philosophy h2 { font-size: clamp(3rem, 13.5vw, 4.35rem); }
         .philosophy-art { min-height: 72vw; }
         .orbit { width: 62%; left: 19%; top: 17%; }
         .journey-head { grid-template-columns: 1fr; gap: 24px; margin-bottom: 50px; }
-        .journey h2 { font-size: clamp(3.2rem, 15vw, 4.7rem); }
+        .journey h2 { font-size: clamp(2.8rem, 12.5vw, 4rem); }
         .journey-steps { grid-template-columns: 1fr; }
         .step, .step + .step { min-height: auto; padding: 30px 0 36px; border-right: 0; border-bottom: 1px solid var(--line); }
         .step-number { font-size: 3.8rem; }
         .step h3 { margin: 35px 0 13px; }
         .contact { grid-template-columns: 1fr; gap: 55px; }
-        .contact h2 { font-size: clamp(3.8rem, 17vw, 5.5rem); }
+        .contact h2 { font-size: clamp(3rem, 13.5vw, 4.35rem); }
         .demo-note { margin-top: 42px; }
         footer { min-height: 240px; grid-template-columns: 1fr; align-items: center; text-align: center; }
         footer .brand { justify-self: center; }
@@ -556,17 +638,24 @@
           letter-spacing: .1em;
           text-decoration: none;
           text-transform: uppercase;
+          opacity: 0;
+          pointer-events: none;
+          transform: translateY(22px);
+          transition: opacity 260ms ease, transform 360ms cubic-bezier(.2,.75,.2,1);
         }
+        .mobile-sticky-cta.is-visible { opacity: 1; pointer-events: auto; transform: none; }
       }
 
       @media (prefers-reduced-motion: reduce) {
         html { scroll-behavior: auto; }
         *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
         .reveal { opacity: 1; transform: none; }
+        .hero-visual img { transform: scale(1.045); }
       }
     </style>
   </head>
   <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
     <div class="demo-bar">Protótipo demonstrativo · marca, imagem e conteúdo fictícios</div>
     <header class="nav">
       <a class="brand" href="#inicio" aria-label="Sutil, voltar ao início">SUTIL</a>
@@ -708,6 +797,8 @@
     <a class="mobile-sticky-cta" href="#agendar">Agendar avaliação <span aria-hidden="true">→</span></a>
 
     <script>
+      requestAnimationFrame(() => document.body.classList.add('is-ready'));
+
       const menuButton = document.querySelector('.menu-button');
       const mobileMenu = document.querySelector('#mobile-menu');
       menuButton.addEventListener('click', () => {
@@ -737,6 +828,33 @@
       });
 
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const progressBar = document.querySelector('.scroll-progress');
+      const heroImage = document.querySelector('.hero-visual img');
+      const stickyCta = document.querySelector('.mobile-sticky-cta');
+      let motionFrame = null;
+
+      const updateScrollMotion = () => {
+        const scrollRange = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = scrollRange > 0 ? Math.min(window.scrollY / scrollRange, 1) : 0;
+        progressBar.style.transform = `scaleX(${progress})`;
+
+        if (!reducedMotion && window.innerWidth > 760) {
+          heroImage.style.setProperty('--parallax-y', `${Math.min(window.scrollY * .045, 34)}px`);
+        } else {
+          heroImage.style.removeProperty('--parallax-y');
+        }
+        stickyCta.classList.toggle('is-visible', window.innerWidth <= 760 && window.scrollY > window.innerHeight * .64);
+        motionFrame = null;
+      };
+
+      const queueScrollMotion = () => {
+        if (motionFrame === null) motionFrame = requestAnimationFrame(updateScrollMotion);
+      };
+
+      window.addEventListener('scroll', queueScrollMotion, { passive: true });
+      window.addEventListener('resize', queueScrollMotion, { passive: true });
+      updateScrollMotion();
+
       const reveals = document.querySelectorAll('.reveal');
       if (reducedMotion || !('IntersectionObserver' in window)) {
         reveals.forEach((element) => element.classList.add('is-visible'));
