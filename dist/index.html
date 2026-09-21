@@ -430,6 +430,10 @@
         font-size: 1rem;
       }
       .field select { color-scheme: dark; }
+      .field select option {
+        background: var(--ivory);
+        color: var(--ink);
+      }
       .field input::placeholder { color: rgba(244,238,229,.34); }
       .field input:focus, .field select:focus { outline: none; border-bottom-color: var(--ivory); }
       .contact-form .button { width: 100%; margin-top: 10px; cursor: pointer; }
@@ -450,7 +454,19 @@
         text-transform: uppercase;
       }
       footer .brand { color: var(--ivory); justify-self: center; }
-      footer a { justify-self: end; text-decoration: none; }
+      footer a { text-decoration: none; }
+      .footer-meta { display: grid; gap: 8px; justify-items: start; }
+      .footer-meta a, .footer-credit a {
+        color: var(--ivory);
+        text-decoration: underline;
+        text-decoration-color: rgba(244,238,229,.32);
+        text-underline-offset: 4px;
+        transition: text-decoration-color 180ms ease;
+      }
+      .footer-meta a:hover, .footer-credit a:hover { text-decoration-color: var(--ivory); }
+      .footer-credit { display: grid; gap: 8px; justify-items: end; text-align: right; }
+      .footer-credit nav { display: flex; align-items: center; gap: 10px; }
+      .footer-credit nav span { color: rgba(244,238,229,.3); }
 
       .mobile-sticky-cta { display: none; }
 
@@ -518,7 +534,8 @@
         .contact h2 { font-size: clamp(3.8rem, 17vw, 5.5rem); }
         .demo-note { margin-top: 42px; }
         footer { min-height: 240px; grid-template-columns: 1fr; align-items: center; text-align: center; }
-        footer .brand, footer a { justify-self: center; }
+        footer .brand { justify-self: center; }
+        .footer-meta, .footer-credit { justify-items: center; text-align: center; }
         .mobile-sticky-cta {
           position: fixed;
           z-index: 30;
@@ -674,9 +691,19 @@
     </main>
 
     <footer>
-      <span>Protótipo comercial · 2026</span>
+      <div class="footer-meta">
+        <span>Protótipo comercial · 2026</span>
+        <a href="#inicio">Voltar ao início ↑</a>
+      </div>
       <a class="brand" href="#inicio">SUTIL</a>
-      <a href="#inicio">Voltar ao início ↑</a>
+      <div class="footer-credit">
+        <span>Criado por: Guilherme R. Munhoz</span>
+        <nav aria-label="Perfis do criador">
+          <a href="https://www.instagram.com/guiimunhoz/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <span aria-hidden="true">·</span>
+          <a href="https://github.com/guimunhoz13" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </nav>
+      </div>
     </footer>
     <a class="mobile-sticky-cta" href="#agendar">Agendar avaliação <span aria-hidden="true">→</span></a>
 
